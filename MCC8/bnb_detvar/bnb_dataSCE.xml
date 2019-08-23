@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<!-- Production Project -->
+
+<!DOCTYPE project [
+<!ENTITY file_type "mc">
+<!ENTITY run_type "physics">
+<!ENTITY name "bnb_cosmic_BNB_dataSCE">
+<!ENTITY relreco "v06_26_01_25">
+<!ENTITY tag "mcc8.17">
+<!ENTITY out_def_list "kmistry_bnb_cosmic_dataSCE_ana_v1">
+<!ENTITY in_def_list "prodgenie_bnb_nu_cosmic_uboone_detsyst_dataSCE_mcc8.17_reco2">
+]>
+
+<job>
+
+<project name="&name;">
+
+  <!-- Operating System -->
+  <os>SL6</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&relreco;</tag>
+    <qual>e10:prof</qual>
+    <local>/pnfs/uboone/resilient/users/chill2/uboonecode_v06260125.tar</local>
+  </larsoft>
+
+  <!-- Project size -->
+  <numevents>200000</numevents> <!--50000 -->
+
+  <!-- Project stages -->
+
+  <stage name="filter">
+    <fcl>/pnfs/uboone/persistent/users/kmistry/NueXSec/run_nue_Xsec_bnb.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/kmistry/NueXSec/filter_&in_def_list;</outdir>
+    <logdir>/pnfs/uboone/scratch/users/kmistry/NueXSec/filter_&in_def_list;</logdir>
+    <workdir>/pnfs/uboone/resilient/users/kmistry/work/NueXSec/filter_&in_def_list;</workdir>
+    <bookdir>/uboone/data/users/kmistry/book/NueXSec/filter_&in_def_list;</bookdir>
+    <numjobs>3</numjobs> <!-- 500  -->
+    <maxfilesperjob>20</maxfilesperjob>
+    <memory>4000</memory>
+    <datatier>ana</datatier>
+    <inputdef>&in_def_list;</inputdef>
+    <schema>root</schema>
+    <!--<defname>&out_def_list;</defname>-->
+  </stage>
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>

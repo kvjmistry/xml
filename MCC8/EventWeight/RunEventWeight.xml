@@ -1,0 +1,70 @@
+<!-- Project details -->
+<!-- This file will run event weight over an input list specified. At the moment given a unisim input -->
+<!DOCTYPE project [
+
+<!ENTITY user "kmistry">
+<!ENTITY name "NuMI_EventWeight">
+<!ENTITY numberjobs "4">
+<!ENTITY filesperjob "5"> <!--78 or 90 files in total -->
+]>
+
+<project name="&name;">
+
+  <!-- Group -->
+  <group>uboone</group>
+  <numevents>10000000</numevents>
+  <!-- Project size (numevents is an upper limit) -->
+  <numjobs>&numberjobs;</numjobs> <!-- 4000 -->
+  <maxfilesperjob>&filesperjob;</maxfilesperjob>
+
+  <!-- Where to look for fcl files (in addition to $FHICL_FILE_PATH) -->
+  <fcldir>/pnfs/uboone/persistent/users/&user;/&name;/</fcldir>
+  <check>0</check>
+
+  <!-- Operating System -->
+  <os>SL6</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource> <!--,OFFSITE-->
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>v06_26_01_13</tag>
+    <qual>e10:prof</qual>
+    <!-- <local>/pnfs/uboone/resilient/users/kmistry/tars/&name;.tar</local> -->
+  </larsoft>
+
+  <!-- Stages -->
+  <stage name = "eventweight">
+    <numjobs>&numberjobs;</numjobs>
+    <maxfilesperjob>&filesperjob;</maxfilesperjob>
+    <schema>root</schema>
+    <inputlist>/pnfs/uboone/scratch/users/kmistry/NuMI_EventFilter/files.list</inputlist>
+    <fcl>myeventweight_UNISIM.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user;/&name;/out/</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/&name;/out/</logdir>
+    <workdir>/pnfs/uboone/resilient/users/&user;/&name;/work/</workdir>
+    <bookdir>/uboone/data/users/&user;/&name;/book</bookdir>
+    <memory>4000</memory>
+    <!-- 2000 optimal for this project in MB, some seem to get to 3000MB and then get held -->
+    <disk>7GB</disk>
+    <jobsub> -f /pnfs/uboone/persistent/users/&user;/&name;/eventweight_microboone_NuMI_UNISIM.fcl --expected-lifetime=6h</jobsub>
+  </stage>
+
+  <stage name = "multisim">
+    <numjobs>&numberjobs;</numjobs>
+    <maxfilesperjob>&filesperjob;</maxfilesperjob>
+    <schema>root</schema>
+    <inputlist>/pnfs/uboone/scratch/users/kmistry/NuMI_EventFilter/files.list</inputlist>
+    <fcl>myeventweight_MULTISIM.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user;/&name;/multisim/out/</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/&name;/multisim/out/</logdir>
+    <workdir>/pnfs/uboone/resilient/users/&user;/&name;/multisim/work/</workdir>
+    <bookdir>/uboone/data/users/&user;/&name;/multisim/book</bookdir>
+    <memory>2000</memory>
+    <!-- 2000 optimal for this project in MB, some seem to get to 3000MB and then get held -->
+    <!--<disk>1GB</disk>-->
+    <jobsub> -f /pnfs/uboone/persistent/users/&user;/&name;/eventweight_microboone_NuMI_MULTISIM.fcl --expected-lifetime=short</jobsub>
+  </stage>
+
+</project>
