@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<!-- Extension/Modified by Colton Oct 2018 -->
+
+<!-- Production Project -->
+<!DOCTYPE project [
+<!ENTITY release      "v06_26_01_30" >
+<!ENTITY file_type    "mc" >
+<!ENTITY run_type     "physics" >
+<!ENTITY name         "prodgenie_numi_nu_cosmic_uboone_detsyst" >
+<!ENTITY tag          "mcc8.17" >
+<!ENTITY prod_mode    "prod" >
+<!ENTITY user_name    "kmistry" >
+]>
+
+<job>
+
+<project name="&name;_vars">
+
+  <!-- Project size -->
+  <numevents>750000</numevents>
+
+  <!-- Operating system -->
+  <os>SL6</os>
+
+  <!-- Project version -->
+  <version>&prod_mode;_v06_26_01_30</version>
+
+  <!-- <fcldir>/pnfs/uboone/persistent/users/kmistry/NuMI_Det_Var/</fcldir> -->
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&release;</tag>
+    <qual>e10:prof</qual> 
+    <local>/pnfs/uboone/resilient/users/kmistry/tars/uboonecode_mcc8_v06_26_01_30.tar</local>
+  </larsoft>
+
+  <!-- <check>1</check> -->
+  <!-- <copy>1</copy> -->
+
+  <!-- Project stages -->
+
+  <!-- Stages for variations, base -->
+  <stage name="base_g4">
+    <fcl>prodgenie_numi_nu_cosmic_uboone.fcl</fcl>
+    <fcl>standard_g4_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_base_g4</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_base_g4</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_base_g4</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_base_g4</workdir>
+    <defname>&name;_base_g4_&tag;</defname>
+    <!-- Parameters to be inherited by all variations that branch off from base_g4 -->
+    <numjobs>10000</numjobs>
+    <maxfilesperjob>1</maxfilesperjob>
+    <datatier>reconstructed</datatier>
+    <memory>3500</memory>
+    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1</jobsub>
+    <jobsub_start>--expected-lifetime=short</jobsub_start>
+    <schema>root</schema>
+  </stage>
+
+  <stage name="base_prop">
+    <fcl>standard_propagate_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_base_prop</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_base_prop</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_base_prop</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_base_prop</workdir>
+    <defname>&name;_base_prop_&tag;</defname>
+    <!-- Parameters to be inherited by all variations that branch off from G4_CV -->
+    <numjobs>9753</numjobs>
+    <maxfilesperjob>1</maxfilesperjob>
+    <datatier>reconstructed</datatier>
+    <memory>4000</memory>
+    <inputlist>/uboone/data/users/kmistry/book/mcc8.17/v06_26_01_30/reco/prodgenie_numi_nu_cosmic_uboone_detsyst_base_g4/files.list</inputlist>
+    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1</jobsub>
+    <jobsub_start>--expected-lifetime=short</jobsub_start>
+    <schema>root</schema>
+  </stage>
+
+  <stage name="base_detsim">
+    <fcl>standard_detsim_numi_CV_prop_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_base_detsim</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_base_detsim</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_base_detsim</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_base_detsim</workdir>
+    <defname>&name;_base_detsim_&tag;</defname>
+    <!-- Parameters to be inherited by all variations that branch off from G4_CV -->
+    <numjobs>9742</numjobs>
+    <maxfilesperjob>1</maxfilesperjob>
+    <datatier>reconstructed</datatier>
+    <memory>4000</memory>
+    <inputlist>/uboone/data/users/kmistry/book/mcc8.17/v06_26_01_30/reco/prodgenie_numi_nu_cosmic_uboone_detsyst_base_prop/files.list</inputlist>
+    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1</jobsub>
+    <jobsub_start>--expected-lifetime=short</jobsub_start>
+    <schema>root</schema>
+  </stage>
+
+  <stage name="base_reco1_reco2">
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_base_reco1_reco2</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_base_reco1_reco2</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_base_reco1_reco2</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_base_reco1_reco2</workdir>
+    <defname>&name;_base_reco1_reco2_&tag;</defname>
+    <!-- Parameters to be inherited by all variations that branch off from G4_CV -->
+    <numjobs>9671</numjobs>
+    <maxfilesperjob>1</maxfilesperjob>
+    <datatier>reconstructed</datatier>
+    <memory>4000</memory>
+    <inputlist>/uboone/data/users/kmistry/book/mcc8.17/v06_26_01_30/reco/prodgenie_numi_nu_cosmic_uboone_detsyst_base_detsim/files.list</inputlist>
+    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1</jobsub>
+    <jobsub_start>--expected-lifetime=short</jobsub_start>
+    <schema>root</schema>
+  </stage>
+
+  <!-- Stages for variations that branch off from G4_CV -->
+  <stage name="from_G4_CV">
+    <fcl>standard_propagate_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_detsim_numi_CV_prop_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_var</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_var</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_var</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_var</workdir> 
+    <defname>&name;_var_&tag;_reco</defname>
+    <!-- Parameters to be inherited by all variations that branch off from G4_CV -->
+    <inputlist>/uboone/data/users/kmistry/book/mcc8.17/v06_26_01_30/reco/prodgenie_numi_nu_cosmic_uboone_detsyst_base_g4/files.list</inputlist>
+    <numjobs>1</numjobs> <!--Full sample put 9753 here -->
+    <maxfilesperjob>1</maxfilesperjob>
+    <datatier>reconstructed</datatier>
+    <memory>4000</memory>
+    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1</jobsub>
+    <jobsub_start>--expected-lifetime=short</jobsub_start>
+    <schema>root</schema>
+  </stage>
+
+  <stage name="BirksRecomb" base="from_G4_CV">
+    <fcl>propagate_BirksRecomb_uboone.fcl</fcl>
+    <fcl>standard_detsim_numi_CV_prop_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_BirksRecomb</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_BirksRecomb</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_BirksRecomb</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_BirksRecomb</workdir> 
+    <defname>&name;_BirksRecomb_&tag;_reco</defname>    
+  </stage>
+
+  <stage name="dataSCE" base="from_G4_CV">
+    <fcl>propagate_dataSCE_uboone.fcl</fcl>
+    <fcl>standard_detsim_numi_CV_prop_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_dataSCE</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_dataSCE</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_dataSCE</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_dataSCE</workdir> 
+    <defname>&name;_dataSCE_&tag;_reco</defname>    
+  </stage>
+
+  <stage name="LArG4BugFix" base="from_G4_CV">
+    <fcl>propagate_LArG4BugFix_uboone.fcl</fcl>
+    <fcl>standard_detsim_numi_CV_prop_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_LArG4BugFix</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_LArG4BugFix</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_LArG4BugFix</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_LArG4BugFix</workdir> 
+    <defname>&name;_LArG4BugFix_&tag;_reco</defname>    
+  </stage>
+
+  <stage name="DLup" base="from_G4_CV">
+    <fcl>propagate_DL_up_uboone.fcl</fcl>
+    <fcl>standard_detsim_numi_CV_prop_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>    
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_DL_up</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_DL_up</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_DL_up</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_DL_up</workdir> 
+    <defname>&name;_DL_up_&tag;_reco</defname>    
+  </stage>
+ 
+  <stage name="DLdown" base="from_G4_CV">
+    <fcl>propagate_DL_down_uboone.fcl</fcl>
+    <fcl>standard_detsim_numi_CV_prop_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_DL_down</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_DL_down</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_DL_down</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_DL_down</workdir> 
+    <defname>&name;_DL_down_&tag;_reco</defname>    
+  </stage>
+
+  <stage name="DTup" base="from_G4_CV">
+    <fcl>propagate_DT_up_uboone.fcl</fcl>
+    <fcl>standard_detsim_numi_CV_prop_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_DT_up</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_DT_up</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_DT_up</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_DT_up</workdir> 
+    <defname>&name;_DT_up_&tag;_reco</defname>    
+  </stage>
+
+  <stage name="DTdown" base="from_G4_CV">
+    <fcl>propagate_DT_down_uboone.fcl</fcl>
+    <fcl>standard_detsim_numi_CV_prop_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_DT_down</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_DT_down</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_DT_down</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_DT_down</workdir> 
+    <defname>&name;_DT_down_&tag;_reco</defname>    
+  </stage>
+  
+  
+  <!-- Stages for variations that branch off from prop_CV -->
+  <stage name="from_prop_CV">
+    <fcl>standard_detsim_numi_CV_prop_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_var</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_var</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_var</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_var</workdir> 
+    <defname>&name;_var_&tag;_reco</defname>
+    <!-- Parameters to be inherited by all variations that branch off from prop_CV -->
+    <inputlist>/uboone/data/users/kmistry/book/mcc8.17/v06_26_01_30/reco/prodgenie_numi_nu_cosmic_uboone_detsyst_base_prop/files.list</inputlist>
+    <numjobs>5234</numjobs>
+    <maxfilesperjob>1</maxfilesperjob>
+    <datatier>reconstructed</datatier>
+    <memory>4000</memory>
+    <jobsub>--expected-lifetime=16h -e IFDH_CP_UNLINK_ON_ERROR=1</jobsub>
+    <jobsub_start>--expected-lifetime=short</jobsub_start>
+    <schema>root</schema>
+  </stage>
+
+  <stage name="withDIC" base="from_prop_CV">
+    <fcl>detsim_withDIC_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_withDIC</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_withDIC</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_withDIC</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_withDIC</workdir> 
+    <defname>&name;_withDIC_&tag;_reco</defname>    
+  </stage>
+
+  <stage name="noiseAmpUp" base="from_prop_CV">
+    <fcl>detsim_NoiseAmp_up_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_noiseAmpUp</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_noiseAmpUp</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_noiseAmpUp</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_noiseAmpUp</workdir> 
+    <defname>&name;_noiseAmpUp_&tag;_reco</defname>    
+  </stage>
+
+  <stage name="noiseAmpDown" base="from_prop_CV">
+    <fcl>detsim_NoiseAmp_down_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_noiseAmpDown</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_noiseAmpDown</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_noiseAmpDown</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_noiseAmpDown</workdir> 
+    <defname>&name;_noiseAmpDown_&tag;_reco</defname>    
+  </stage>
+
+  <stage name="upPEnoise" base="from_prop_CV">
+    <fcl>detsim_PEnoise_up_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_upPEnoise</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_upPEnoise</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_upPEnoise</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_upPEnoise</workdir> 
+    <defname>&name;_upPEnoise_&tag;_reco</defname>    
+  </stage>
+  
+  <stage name="downPEnoise" base="from_prop_CV">
+    <fcl>detsim_PEnoise_down_uboone.fcl</fcl>
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_downPEnoise</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_downPEnoise</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_downPEnoise</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_downPEnoise</workdir> 
+    <defname>&name;_downPEnoise_&tag;_reco</defname>    
+  </stage>
+
+
+  <!-- Stages for variations that branch off from detsim_CV -->
+  <stage name="from_detsim_CV">
+    <fcl>standard_reco1_numi_CV_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_var</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_var</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_var</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_var</workdir> 
+    <defname>&name;_var_&tag;_reco</defname>
+    <!-- Parameters to be inherited by all variations that branch off from detsim_CV -->
+    <inputlist>/uboone/data/users/kmistry/book/mcc8.17/v06_26_01_30/reco/prodgenie_numi_nu_cosmic_uboone_detsyst_base_detsim/files.list</inputlist>
+    <numjobs>500</numjobs>
+    <maxfilesperjob>1</maxfilesperjob>
+    <datatier>reconstructed</datatier>
+    <memory>4000</memory>
+    <jobsub>--expected-lifetime=8h -e IFDH_CP_UNLINK_ON_ERROR=1</jobsub>
+    <jobsub_start>--expected-lifetime=short</jobsub_start>
+    <schema>root</schema>
+  </stage>
+
+  <stage name="squeezeResp" base="from_detsim_CV">
+    <fcl>reco1_squeezeResp_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_squeezeResp</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_squeezeResp</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_squeezeResp</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_squeezeResp</workdir>
+    <defname>&name;_squeezeResp_&tag;_reco</defname>
+  </stage>
+
+  <stage name="stretchResp" base="from_detsim_CV">
+    <fcl>reco1_stretchResp_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_stretchResp</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_stretchResp</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_stretchResp</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_stretchResp</workdir>
+    <defname>&name;_stretchResp_&tag;_reco</defname>
+  </stage>
+
+  <stage name="altDeadChannels" base="from_detsim_CV">
+    <fcl>reco1_altDeadChannels_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_altDeadChannels</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_altDeadChannels</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_altDeadChannels</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_altDeadChannels</workdir>
+    <defname>&name;_altDeadChannels_&tag;_reco</defname>
+  </stage>
+
+  <stage name="deadSaturatedChannels" base="from_detsim_CV">
+    <fcl>reco1_deadSaturatedChannels_uboone.fcl</fcl>
+    <fcl>standard_reco2_numi_CV_uboone.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_deadSaturatedChannels</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user_name;/&tag;/&release;/reco/&name;_deadSaturatedChannels</logdir>
+    <bookdir>/uboone/data/users/&user_name;/book/&tag;/&release;/reco/&name;_deadSaturatedChannels</bookdir>
+    <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_deadSaturatedChannels</workdir>
+    <defname>&name;_deadSaturatedChannels_&tag;_reco</defname>
+  </stage>
+
+  <!-- File type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- Run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>
