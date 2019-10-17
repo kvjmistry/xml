@@ -40,7 +40,7 @@
     <logdir>/pnfs/uboone/scratch/users/kmistry/NueXSec/filter_&in_def_list;</logdir>
     <workdir>/pnfs/uboone/resilient/users/kmistry/work/NueXSec/filter_&in_def_list;</workdir>
     <bookdir>/uboone/data/users/kmistry/book/NueXSec/filter_&in_def_list;</bookdir>
-    <numjobs>468</numjobs> <!-- 482  -->
+    <numjobs>466</numjobs> <!-- 482  -->
     <maxfilesperjob>20</maxfilesperjob>
     <memory>2000</memory>
     <datatier>ana</datatier>
