@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<!-- Production Project -->
+<!DOCTYPE project [
+<!ENTITY release "v08_00_00_26">
+<!ENTITY file_type "mc">
+<!ENTITY run_type "physics">
+<!ENTITY user "kmistry">
+<!ENTITY name "prodgenie_numi_uboone_overlay_fhc_mcc9">
+<!ENTITY tag "mcc9_v08_00_00_26">
+]>
+
+<job>
+
+<project name="&name;">
+
+  <!-- Project size -->
+  <numevents>5000</numevents>
+
+  <!-- Operating System -->
+  <os>SL6</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&release;</tag>
+    <qual>e17:prof</qual>
+    <local>/pnfs/uboone/resilient/users/kmistry/tars/uboonecode_mcc9_v08_00_00_26.tar</local>
+  </larsoft>
+
+  <!-- Project stages -->
+
+  <stage name="overlay">
+    <fcl>standard_overlay_gen_numi_griddriver_fhc.fcl</fcl>
+    <fcl>wirecell_g4_uboone.fcl</fcl>
+    <fcl>wirecell_detsim_overlay_numi_uboone.fcl</fcl>
+    <fcl>standard_overlay_numi_uboone.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_stage1a.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_stage1b.fcl</fcl>
+    <fcl>standard_larcv_uboone_mctruth_prod.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage1c.fcl</fcl>
+    <fcl>run_celltreeub_overlay_prod.fcl</fcl>
+    <fcl>standard_larcv_uboone_mc2d_prod.fcl</fcl>
+    <fcl>wirecell_detsim_optical_overlay_numi_uboone.fcl</fcl>
+    <fcl>standard_overlay_optical_numi_uboone.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_numi_optical.fcl</fcl>
+    <fcl>run_celltreeub_overlay_prod.fcl</fcl>
+    <fcl>standard_larcv_uboone_mc2d_optical_prod.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage2.fcl</fcl>
+    <inputdef>prod_extunbiased_swizzle_inclusive_v3_goodruns_mcc9_run1_high_lifetime_overlay_bnb_nu</inputdef>
+    <datafiletypes>root,pndr</datafiletypes>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco2</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>10</numjobs>
+    <datatier>reconstructed</datatier>
+    <memory>4000</memory>
+    <jobsub>--expected-lifetime=18h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start>  --expected-lifetime=5h</jobsub_start>
+  </stage>
+
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+
+</job>
