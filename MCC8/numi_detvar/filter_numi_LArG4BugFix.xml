@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<!-- Production Project -->
+<!-- This is the numi full mc with the LArG4Bugfix variation, this is running coltons larsoft filter  -->
+
+<!DOCTYPE project [
+<!ENTITY file_type "mc">
+<!ENTITY run_type "physics">
+<!ENTITY name "numi_mc_cosmic_LArG4BugFix">
+<!ENTITY relreco "v06_26_01_25">
+<!ENTITY tag "mcc8.17">
+<!ENTITY in_def_list "numi_mc_cosmic_LArG4BugFix">
+]>
+
+<job>
+
+<project name="&name;">
+
+  <!-- Operating System -->
+  <os>SL6</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&relreco;</tag>
+    <qual>e10:prof</qual>
+    <local>/pnfs/uboone/resilient/users/chill2/uboonecode_v06260125.tar</local>
+  </larsoft>
+
+  <!-- Project size -->
+  <numevents>700000</numevents> <!--50000 -->
+
+  <!-- Project stages -->
+
+  <stage name="filter">
+    <fcl>/pnfs/uboone/persistent/users/kmistry/NueXSec/run_nue_Xsec.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/kmistry/NueXSec/filter_&in_def_list;</outdir>
+    <logdir>/pnfs/uboone/scratch/users/kmistry/NueXSec/filter_&in_def_list;</logdir>
+    <workdir>/pnfs/uboone/resilient/users/kmistry/work/NueXSec/filter_&in_def_list;</workdir>
+    <bookdir>/uboone/data/users/kmistry/book/NueXSec/filter_&in_def_list;</bookdir>
+    <numjobs>359</numjobs> <!-- 482  -->
+    <maxfilesperjob>20</maxfilesperjob>
+    <memory>2000</memory>
+    <datatier>ana</datatier>
+    <inputlist>/pnfs/uboone/persistent/users/kmistry/mcc8.17/prodgenie_numi_nu_cosmic_uboone_detsyst_LArG4BugFix.list</inputlist>
+    <schema>root</schema>
+  </stage>
+  
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>

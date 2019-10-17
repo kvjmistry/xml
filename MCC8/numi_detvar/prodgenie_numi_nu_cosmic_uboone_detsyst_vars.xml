@@ -310,12 +310,12 @@
     <workdir>/pnfs/uboone/scratch/users/&user_name;/work/&tag;/&release;/reco/&name;_var</workdir> 
     <defname>&name;_var_&tag;_reco</defname>
     <!-- Parameters to be inherited by all variations that branch off from detsim_CV -->
-    <inputlist>/uboone/data/users/kmistry/book/mcc8.17/v06_26_01_30/reco/prodgenie_numi_nu_cosmic_uboone_detsyst_base_detsim/files.list</inputlist>
-    <numjobs>500</numjobs>
+    <inputlist>/uboone/data/users/kmistry/book/mcc8.17/v06_26_01_30/reco/prodgenie_numi_nu_cosmic_uboone_detsyst_base_detsim/prodgenie_numi_nu_cosmic_uboone_detsyst_base_detsim.list</inputlist>
+    <numjobs>100</numjobs>
     <maxfilesperjob>1</maxfilesperjob>
     <datatier>reconstructed</datatier>
     <memory>4000</memory>
-    <jobsub>--expected-lifetime=8h -e IFDH_CP_UNLINK_ON_ERROR=1</jobsub>
+    <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1</jobsub>
     <jobsub_start>--expected-lifetime=short</jobsub_start>
     <schema>root</schema>
   </stage>
