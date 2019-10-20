@@ -15,13 +15,13 @@
 <project name="&name;">
 
   <!-- Project size -->
-  <numevents>5000</numevents>
+  <numevents>1000</numevents>
 
   <!-- Operating System -->
   <os>SL6</os>
 
   <!-- Batch resources -->
-  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+  <resource>OFFSITE</resource>
 
   <!-- Larsoft information -->
   <larsoft>
@@ -49,7 +49,9 @@
     <fcl>run_celltreeub_overlay_prod.fcl</fcl>
     <fcl>standard_larcv_uboone_mc2d_optical_prod.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage2.fcl</fcl>
-    <inputdef>prod_extunbiased_swizzle_inclusive_v3_goodruns_mcc9_run1_high_lifetime_overlay_bnb_nu</inputdef>
+    <!-- <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_beamOn_run1_numi.fcl</fcl>-->
+    <inputdef>kmistry_unbiased_run1_high_lifetime_mcc9_1000_files</inputdef>
+    <!-- <inputlist>/pnfs/uboone/persistent/users/kmistry/files/kmistry_unbiased_run1_high_lifetime_mcc9_1000_files_file.list</inputlist>-->
     <datafiletypes>root,pndr</datafiletypes>
     <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2</outdir>
     <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2</logdir>
@@ -58,9 +60,10 @@
     <maxfilesperjob>1</maxfilesperjob>
     <numjobs>10</numjobs>
     <datatier>reconstructed</datatier>
-    <memory>4000</memory>
+    <memory>3000</memory>
+    <cpu>2</cpu>
     <jobsub>--expected-lifetime=18h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
-    <jobsub_start>  --expected-lifetime=5h</jobsub_start>
+    <jobsub_start>  --expected-lifetime=short</jobsub_start>
   </stage>
 
   <!-- file type -->
