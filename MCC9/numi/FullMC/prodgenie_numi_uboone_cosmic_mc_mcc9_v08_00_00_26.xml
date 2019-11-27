@@ -18,16 +18,16 @@
   <numevents>500</numevents>
 
   <!-- Operating System -->
-  <os>SL6</os>
+  <os>SL7</os>
 
   <!-- Batch resources -->
-  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+  <resource>OFFSITE</resource>
 
   <!-- Larsoft information -->
   <larsoft>
     <tag>&release;</tag>
     <qual>e17:prof</qual>
-    <local>/pnfs/uboone/resilient/users/kmistry/tars/uboonecode_mcc9_v08_00_00_26.tar</local>
+    <local>/pnfs/uboone/resilient/users/kmistry/tars/uboonecode_mcc9_v08_00_00_26_sl7.tar</local>
   </larsoft>
 
   <!-- <check>1</check> -->
@@ -65,6 +65,5 @@
   <runtype>&run_type;</runtype>
 
 </project>
-
 
 </job>
