@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<!-- Production Project -->
+<!DOCTYPE project [
+<!ENTITY release "v08_00_00_01b">
+<!ENTITY file_type "data">
+<!ENTITY run_type "physics">
+<!ENTITY user "kmistry">
+<!ENTITY name "numi_beamon_uboone_mcc9_run1_reco1">
+]>
+
+
+<job>
+
+<project name="&name;">
+
+  <!-- Project size -->
+  <numevents>40000</numevents>
+
+  <!-- Operating System -->
+  <os>SL6,SL7</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&release;</tag>
+    <qual>e17:prof</qual>
+  </larsoft>
+
+  <check>1</check>
+  <!-- <copy>1</copy> -->
+  
+  <!-- Project stages -->
+
+  <stage name="reco1">
+    <fcl>reco_uboone_data_mcc9_8_driver_stage1.fcl</fcl>
+    <datafiletypes>root,pndr</datafiletypes>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco1</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1</bookdir>
+    <inputdef>prod_numi_swizzle_inclusive_v3_tmnt_stride2_offset0_run6748_goodruns_mcc9_Set0</inputdef>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>500</numjobs>
+    <datatier>reconstructed</datatier>
+    <schema>gsiftp</schema>
+    <memory>4000</memory>
+    <jobsub>--expected-lifetime=10h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+  </stage>
+
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>

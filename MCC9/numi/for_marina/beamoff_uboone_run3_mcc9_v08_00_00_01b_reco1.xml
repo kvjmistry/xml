@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<!-- This xml will generate 10k run3b overlay events-->
+
+<!-- Production Project -->
+<!DOCTYPE project [
+<!ENTITY release "v08_00_00_01b">
+<!ENTITY file_type "mc">
+<!ENTITY run_type "physics">
+<!ENTITY user "kmistry">
+<!ENTITY name "beamoff_numi_uboone_mcc9_run3b">
+<!ENTITY tag "mcc9_v08_00_00_01b">
+<!ENTITY sample "sample0">
+<!ENTITY indef "kmistry_numi_run3b_beamoff_300files">
+]>
+
+<job>
+
+<project name="&name;_&sample;">
+
+  <!-- Project size -->
+  <numevents>-1</numevents>
+
+  <!-- Operating System -->
+  <os>SL6,SL7</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&release;</tag>
+    <qual>e17:prof</qual>
+  </larsoft>
+
+  <fcldir>/pnfs/uboone/persistent/users/kmistry/MCC9/</fcldir>
+
+  <copy>0</copy>
+  <check>0</check>
+
+  <!-- Project stages -->
+  <stage name="reco1">
+    <fcl>reco_uboone_data_mcc9_8_driver_stage1.fcl</fcl>
+    <inputdef>&indef;</inputdef>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco2/&sample;</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2/&sample;</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>300</numjobs> <!-- All files set this to 300 -->
+    <datatier>reconstructed</datatier>
+    <memory>4000</memory>
+    <jobsub>--expected-lifetime=8h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+
+<!-- Production Project -->
+<!DOCTYPE project [
+<!ENTITY release "v08_00_00_28">
+<!ENTITY file_type "mc">
+<!ENTITY run_type "physics">
+<!ENTITY user "kmistry">
+<!ENTITY name "numi_beamoff_uboone_mcc9_run1_reco2">
+<!ENTITY tag "mcc9_v08_00_00_28">
+<!ENTITY inlist "/uboone/data/users/kmistry/book/MCC9/numi_beamoff_uboone_mcc9_run1_reco1/reco1/files.list">
+]>
+
+<job>
+
+<project name="&name;">
+
+  <!-- Project size -->
+  <numevents>-1</numevents>
+
+  <!-- Operating System -->
+  <os>SL6,SL7</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&release;</tag>
+    <qual>e17:prof</qual>
+  </larsoft>
+
+  <fcldir>/pnfs/uboone/persistent/users/kmistry/MCC9/</fcldir>
+
+  <copy>0</copy>
+  <check>0</check>
+
+  <!-- Project stages -->
+  <stage name="reco2">
+    <fcl>reco_uboone_mcc9_8_driver_data_ext_numi_optical.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_8_driver_stage2_beamOff_numi.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_beamOff_numi.fcl</fcl>
+    <inputlist>&inlist;</inputlist>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco2/</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2/</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>499</numjobs> <!-- All files set this to how many files in the input list -->
+    <datatier>reconstructed</datatier>
+    <memory>4000</memory>
+    <jobsub>--expected-lifetime=8h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>

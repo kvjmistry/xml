@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+
+<!-- This is for generating the third sample for run 1 overlay (FHC mode) -->
+<!-- You should change the sample name and input definition accordingly -->
+<!-- If the input def is changed, make sure that the relavent memory, time etc are adjusted-->
+<!-- If you are not krishan then of course change the username entity-->
+
+<!-- Production Project -->
+<!DOCTYPE project [
+<!ENTITY release "v08_00_00_28">
+<!ENTITY file_type "mc">
+<!ENTITY run_type "physics">
+<!ENTITY user "kmistry">
+<!ENTITY name "prodgenie_numi_uboone_overlay_fhc_mcc9_run1_v28">
+<!ENTITY tag "mcc9_v08_00_00_28">
+<!ENTITY sample "sample2">
+<!ENTITY indef "prod_extunbiased_swizzle_inclusive_v3_goodruns_mcc9_run1_high_lifetime_frozen_Set4">
+]>
+
+<job>
+
+<project name="&name;_&sample;">
+
+  <!-- Project size -->
+  <!-- Set -1 here to run over all events in the overlay file-->
+  <numevents>-1</numevents>
+
+  <!-- Operating System -->
+  <os>SL6,SL7</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&release;</tag>
+    <qual>e17:prof</qual>
+  </larsoft>
+
+  <fcldir>/pnfs/uboone/persistent/users/kmistry/MCC9/</fcldir>
+
+  <copy>1</copy>
+  <check>1</check>
+
+  <!-- Project stages -->
+  <stage name="overlay">
+    <fcl>standard_overlay_gen_numi_griddriver_fhc.fcl</fcl>
+    <fcl>wirecell_g4_uboone.fcl</fcl>
+    <fcl>wirecell_detsim_overlay_numi_uboone.fcl</fcl>
+    <fcl>standard_overlay_numi_uboone.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_stage1a.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_stage1b.fcl</fcl>
+    <fcl>standard_larcv_uboone_mctruth_prod.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage1c.fcl</fcl>
+    <fcl>wirecell_detsim_optical_overlay_numi_uboone.fcl</fcl>
+    <fcl>standard_overlay_optical_numi_uboone.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_numi_optical.fcl</fcl>
+    <fcl>run_celltreeub_overlay_prod.fcl</fcl>
+    <fcl>standard_larcv_uboone_mc2d_prod.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage2.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_Overlay_numi.fcl</fcl>
+    <inputdef>&indef;</inputdef>
+    <datafiletypes>root,pndr</datafiletypes>
+    <defname>&name;_&sample;</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco2/&sample;</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2/&sample;</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>4000</numjobs>
+    <datatier>reconstructed</datatier>
+    <memory>4000</memory>
+    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>

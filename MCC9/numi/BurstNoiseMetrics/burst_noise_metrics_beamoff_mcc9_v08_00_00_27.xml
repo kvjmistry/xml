@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<!-- Production Project -->
+<!DOCTYPE project [
+<!ENTITY release "v08_00_00_27">
+<!ENTITY file_type "data">
+<!ENTITY run_type "physics">
+<!ENTITY user "kmistry">
+<!ENTITY name "burst_noise_metrics_beamoff">
+]>
+
+
+<job>
+
+<project name="&name;">
+
+  <!-- Project size -->
+  <numevents>40000</numevents>
+
+  <!-- Operating System -->
+  <os>SL7</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&release;</tag>
+    <qual>e17:prof</qual>
+    <local>/pnfs/uboone/resilient/users/kmistry/tars/uboonecode_mcc9_v08_00_00_27_sl7.tar</local>
+  </larsoft>
+
+  <!-- <check>1</check> -->
+  <!-- <copy>1</copy> -->
+  
+  <!-- Project stages -->
+
+  <stage name="bnm">
+    <fcl>run_BurstNoiseMetricsFilter.fcl</fcl>
+    <datafiletypes>root,pndr</datafiletypes>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/bnm</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/bnm</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/bnm</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/bnm</bookdir>
+    <inputlist>/uboone/data/users/kmistry/book/MCC9/numi_beamoff_uboone_mcc9_run1_reco1/reco1/files.list</inputlist>
+    <maxfilesperjob>2</maxfilesperjob>
+    <numjobs>149</numjobs>
+    <datatier>reconstructed</datatier>
+    <schema>gsiftp</schema>
+    <memory>1000</memory>
+    <jobsub>--expected-lifetime=4h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+  </stage>
+
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>

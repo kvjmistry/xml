@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<!-- This xml will generate 10k run3b overlay events-->
+
+<!-- Production Project -->
+<!DOCTYPE project [
+<!ENTITY release "v08_00_00_28">
+<!ENTITY file_type "mc">
+<!ENTITY run_type "physics">
+<!ENTITY user "kmistry">
+<!ENTITY name "beamon_numi_uboone_mcc9_run3b">
+<!ENTITY tag "mcc9_v08_00_00_28">
+<!ENTITY sample "sample0">
+<!ENTITY inlist "">
+]>
+
+<job>
+
+<project name="&name;_&sample;">
+
+  <!-- Project size -->
+  <numevents>-1</numevents>
+
+  <!-- Operating System -->
+  <os>SL6,SL7</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&release;</tag>
+    <qual>e17:prof</qual>
+  </larsoft>
+
+  <fcldir>/pnfs/uboone/persistent/users/kmistry/MCC9/</fcldir>
+
+  <copy>0</copy>
+  <check>0</check>
+
+  <!-- Project stages -->
+  <stage name="reco2">
+    <fcl>run_merge_beamdata.fcl</fcl>
+    <fcl>crt_merge_extra_v06_26_01_13.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_data_numi_optical.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_8_driver_stage2_beamOn_numi.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_beamOn_numi.fcl</fcl>
+    <inputlist>&inlist;</inputlist>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/postreco2/&sample;</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/postreco2/&sample;</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/postreco2/&sample;</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/postreco2/&sample;</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>100</numjobs> <!-- All files set this to the number of files in the input list -->
+    <datatier>reconstructed</datatier>
+    <memory>4000</memory>
+    <jobsub>--expected-lifetime=8h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> 
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>
