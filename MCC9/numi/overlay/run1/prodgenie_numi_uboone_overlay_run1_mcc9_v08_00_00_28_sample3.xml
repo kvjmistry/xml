@@ -5,6 +5,8 @@
 <!-- If the input def is changed, make sure that the relavent memory, time etc are adjusted-->
 <!-- If you are not krishan then of course change the username entity-->
 
+<!-- This is splot into three stages to save outputs when making the detector variations -->
+
 <!-- Production Project -->
 <!DOCTYPE project [
 <!ENTITY release "v08_00_00_28">
@@ -13,7 +15,7 @@
 <!ENTITY user "kmistry">
 <!ENTITY name "prodgenie_numi_uboone_overlay_fhc_mcc9_run1_v28">
 <!ENTITY tag "mcc9_v08_00_00_28">
-<!ENTITY sample "sample2">
+<!ENTITY sample "sample3">
 <!ENTITY indef "prod_extunbiased_swizzle_inclusive_v3_goodruns_mcc9_run1_high_lifetime_frozen_Set5">
 ]>
 
@@ -43,15 +45,72 @@
   <check>1</check>
 
   <!-- Project stages -->
-  <stage name="overlay">
+  <stage name="g4">
     <fcl>standard_overlay_gen_numi_griddriver_fhc.fcl</fcl>
     <fcl>wirecell_g4_uboone.fcl</fcl>
+    <inputdef>&indef;</inputdef>
+    <datafiletypes>root,pndr</datafiletypes>
+    <defname>&name;_sample2_g4</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/g4/sample2</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/g4/sample2</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/g4/sample2</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/g4/sample2</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>4000</numjobs>
+    <datatier>simulated</datatier>
+    <memory>3500</memory>
+    <jobsub>--expected-lifetime=18h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <stage name="reco1">
     <fcl>wirecell_detsim_overlay_numi_uboone.fcl</fcl>
     <fcl>standard_overlay_numi_uboone.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_stage1a.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_stage1b.fcl</fcl>
     <fcl>standard_larcv_uboone_mctruth_prod.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage1c.fcl</fcl>
+    <inputdef>&name;_&sample;_g4</inputdef>
+    <datafiletypes>root,pndr</datafiletypes>
+    <defname>&name;_&sample;_reco1</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco1/&sample;</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1/&sample;</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>10</numjobs>
+    <datatier>reconstructed-2d</datatier>
+    <memory>3500</memory>
+    <jobsub>--expected-lifetime=18h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <stage name="reco1_makeup1">
+    <fcl>wirecell_detsim_overlay_numi_uboone.fcl</fcl>
+    <fcl>standard_overlay_numi_uboone.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_stage1a.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_stage1b.fcl</fcl>
+    <fcl>standard_larcv_uboone_mctruth_prod.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage1c.fcl</fcl>
+    <inputdef>&name;_&sample;_g4_makeup1</inputdef>
+    <datafiletypes>root,pndr</datafiletypes>
+    <defname>&name;_&sample;_reco1</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;_makeup1</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;_makeup1</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco1/&sample;_makeup1</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1/&sample;_makeup1</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>3956</numjobs>
+    <datatier>reconstructed-2d</datatier>
+    <memory>3500</memory>
+    <jobsub>--expected-lifetime=18h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <stage name="reco2">
     <fcl>wirecell_detsim_optical_overlay_numi_uboone.fcl</fcl>
     <fcl>standard_overlay_optical_numi_uboone.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_numi_optical.fcl</fcl>
@@ -59,7 +118,7 @@
     <fcl>standard_larcv_uboone_mc2d_prod.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage2.fcl</fcl>
     <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_Overlay_numi.fcl</fcl>
-    <inputdef>&indef;</inputdef>
+    <inputdef>&name;_&sample;_reco1</inputdef>
     <datafiletypes>root,pndr</datafiletypes>
     <defname>&name;_&sample;</defname>
     <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</outdir>
@@ -67,10 +126,34 @@
     <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco2/&sample;</workdir>
     <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2/&sample;</bookdir>
     <maxfilesperjob>1</maxfilesperjob>
-    <numjobs>4000</numjobs>
+    <numjobs>3800</numjobs>
     <datatier>reconstructed</datatier>
-    <memory>4000</memory>
-    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
+    <memory>3500</memory>
+    <jobsub>--expected-lifetime=18h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <stage name="reco2_makeup1">
+    <fcl>wirecell_detsim_optical_overlay_numi_uboone.fcl</fcl>
+    <fcl>standard_overlay_optical_numi_uboone.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_numi_optical.fcl</fcl>
+    <fcl>run_celltreeub_overlay_prod.fcl</fcl>
+    <fcl>standard_larcv_uboone_mc2d_prod.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage2.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_Overlay_numi.fcl</fcl>
+    <inputdef>&name;_&sample;_reco1_makeup1</inputdef>
+    <datafiletypes>root,pndr</datafiletypes>
+    <defname>&name;_&sample;</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;_makeup1</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;_makeup1</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco2/&sample;_makeup1</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2/&sample;_makeup1</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>753</numjobs>
+    <datatier>reconstructed</datatier>
+    <memory>3500</memory>
+    <jobsub>--expected-lifetime=10h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
     <jobsub_start> --expected-lifetime=short</jobsub_start>
     <blacklist>Lancaster</blacklist>
   </stage>

@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<!-- This is for generating the fifth sample of run3b beamon offset1 -->
+<!-- You should change the sample name and input definition accordingly -->
+<!-- If the input def is changed, make sure that the relavent memory, time etc are adjusted-->
+<!-- If you are not krishan then of course change the username entity-->
+
+<!-- Production Project -->
+<!DOCTYPE project [
+<!ENTITY release "v08_00_00_01b">
+<!ENTITY file_type "data">
+<!ENTITY run_type "physics">
+<!ENTITY user "kmistry">
+<!ENTITY name "numi_uboone_run3b_beamon_offset1_mcc9_reco1_v08_00_00_01b">
+<!ENTITY indef "prod_numi_swizzle_crt_inclusive_v6_tmnt_stride2_offset1_goodRun3_goodcrt_set4">
+<!ENTITY sample "sample4">
+]>
+
+<job>
+
+<project name="&name;_&sample;">
+
+  <!-- Project size -->
+  <numevents>-1</numevents>
+
+  <!-- Operating System -->
+  <os>SL6,SL7</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&release;</tag>
+    <qual>e17:prof</qual>
+  </larsoft>
+
+  <check>1</check>
+  <copy>1</copy>
+  
+  <!-- Project stages -->
+  <stage name="reco1">
+    <fcl>reco_uboone_data_mcc9_8_driver_stage1.fcl</fcl>
+    <fcl>run_celltreeub_prod.fcl</fcl>
+    <datafiletypes>root,pndr</datafiletypes>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco1</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1</bookdir>
+    <inputdef>&indef;</inputdef>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>4000</numjobs>
+    <datatier>reconstructed</datatier>
+    <defname>&name;_&sample;</defname>
+    <memory>4000</memory>
+    <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>

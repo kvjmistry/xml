@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+
+
+<!-- Production Project -->
+<!DOCTYPE project [
+<!ENTITY release "v08_00_00_28">
+<!ENTITY file_type "data">
+<!ENTITY run_type "physics">
+<!ENTITY user "kmistry">
+<!ENTITY name "numi_beamon_uboone_mcc9_run1_beamdata">
+<!ENTITY tag "mcc9_v08_00_00_28">
+<!ENTITY outdef "prod_numi_swizzle_inclusive_v3_tmnt_stride2_offset0_run6748_goodruns_mcc9_beamdata">
+]>
+
+<job>
+
+<project name="&name;">
+
+  <!-- Project size -->
+  <numevents>-1</numevents>
+
+  <!-- Operating System -->
+  <os>SL6,SL7</os>
+
+  <!-- Group -->
+  <group>uboone</group>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&release;</tag>
+    <qual>e17:prof</qual>
+  </larsoft>
+
+  <fcldir>/pnfs/uboone/persistent/users/kmistry/MCC9/</fcldir>
+
+  <copy>1</copy>
+  <check>1</check>
+
+  <!-- Project stages -->
+  <stage name="sample0">
+    <fcl>run_merge_beamdata.fcl</fcl>
+    <inputdef>prod_numi_swizzle_inclusive_v3_tmnt_stride2_offset0_run6748_goodruns_mcc9_Set0</inputdef>
+    <defname>&outdef;</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set0/</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set0/</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/beamdata/Set0/</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/beamdata/Set0/</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>4000</numjobs> <!-- All files set this to how many files in the input list -->
+    <memory>1500</memory>
+    <datatier>reconstructed</datatier>
+    <datafiletypes>root,pndr</datafiletypes>
+    <jobsub>--expected-lifetime=8h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <stage name="sample1">
+    <fcl>run_merge_beamdata.fcl</fcl>
+    <inputdef>prod_numi_swizzle_inclusive_v3_tmnt_stride2_offset0_run6748_goodruns_mcc9_Set1</inputdef>
+    <defname>&outdef;</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set1/</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set1/</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/beamdata/Set1/</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/beamdata/Set1/</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>4000</numjobs> <!-- All files set this to how many files in the input list -->
+    <memory>1300</memory>
+    <datatier>reconstructed</datatier>
+    <datafiletypes>root,pndr</datafiletypes>
+    <jobsub>--expected-lifetime=8h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <stage name="sample2">
+    <fcl>run_merge_beamdata.fcl</fcl>
+    <inputdef>prod_numi_swizzle_inclusive_v3_tmnt_stride2_offset0_run6748_goodruns_mcc9_Set2</inputdef>
+    <defname>&outdef;</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set2/</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set2/</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/beamdata/Set2/</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/beamdata/Set2/</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>4000</numjobs> <!-- All files set this to how many files in the input list -->
+    <memory>1300</memory>
+    <datatier>reconstructed</datatier>
+    <datafiletypes>root,pndr</datafiletypes>
+    <jobsub>--expected-lifetime=6h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+  
+  <stage name="sample3">
+    <fcl>run_merge_beamdata.fcl</fcl>
+    <inputdef>prod_numi_swizzle_inclusive_v3_tmnt_stride2_offset0_run6748_goodruns_mcc9_Set3</inputdef>
+    <defname>&outdef;</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set3/</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set3/</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/beamdata/Set3/</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/beamdata/Set3/</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>150</numjobs> <!-- All files set this to how many files in the input list -->
+    <memory>1300</memory>
+    <datatier>reconstructed</datatier>
+    <datafiletypes>root,pndr</datafiletypes>
+    <jobsub>--expected-lifetime=6h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <stage name="sample4">
+    <fcl>run_merge_beamdata.fcl</fcl>
+    <inputdef>prod_numi_swizzle_inclusive_v3_tmnt_stride2_offset0_run6748_goodruns_mcc9_beamdata_all_makeup</inputdef>
+    <defname>prod_numi_swizzle_inclusive_v3_tmnt_stride2_offset0_run6748_goodruns_mcc9_beamdata_all</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set4/</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set4/</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/beamdata/Set4/</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/beamdata/Set4/</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>43</numjobs> <!-- All files set this to how many files in the input list -->
+    <memory>2000</memory>
+    <datatier>reconstructed</datatier>
+    <datafiletypes>root,pndr</datafiletypes>
+    <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <stage name="sample5">
+    <fcl>run_merge_beamdata.fcl</fcl>
+    <inputdef>prod_numi_swizzle_inclusive_v3_tmnt_stride2_offset0_run6748_goodruns_mcc9_beamdata_all_makeup2</inputdef>
+    <defname>prod_numi_swizzle_inclusive_v3_tmnt_stride2_offset0_run6748_goodruns_mcc9_beamdata_all</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set5/</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/beamdata/Set5/</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/beamdata/Set5/</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/beamdata/Set5/</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>13</numjobs> <!-- All files set this to how many files in the input list -->
+    <memory>2000</memory>
+    <datatier>reconstructed</datatier>
+    <datafiletypes>root,pndr</datafiletypes>
+    <jobsub>--expected-lifetime=6h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>

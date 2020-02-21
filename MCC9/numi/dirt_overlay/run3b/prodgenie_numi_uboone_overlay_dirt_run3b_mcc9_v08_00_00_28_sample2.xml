@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- This xml will generate the third run 3b overlay sample -->
-<!-- This is split up into three stages since we want to keep intermediate stages for detector variation samples -->
+<!-- This xml will generate the third run 3b overlay dirt sample -->
 
 <!-- Production Project -->
 <!DOCTYPE project [
@@ -9,10 +8,10 @@
 <!ENTITY file_type "mc">
 <!ENTITY run_type "physics">
 <!ENTITY user "kmistry">
-<!ENTITY name "prodgenie_numi_uboone_overlay_rhc_mcc9_run3b_v28">
+<!ENTITY name "prodgenie_numi_uboone_overlay_dirt_rhc_mcc9_run3b_v28">
 <!ENTITY tag "mcc9_v08_00_00_28">
 <!ENTITY sample "sample2">
-<!ENTITY indef "prod_extunbiased_swizzle_crt_inclusive_v6_v6a_goodruns_mcc9_run3_overlay_bnb_nu_frozen_epoch_G1_Set2">
+<!ENTITY indef "prod_extunbiased_swizzle_crt_inclusive_v6_v6a_goodruns_mcc9_run3_overlay_numi_dirt_epoch_G1_frozen_Set2">
 ]>
 
 <job>
@@ -40,49 +39,15 @@
   <check>1</check>
 
   <!-- Project stages -->
-  <stage name="g4">
-    <fcl>standard_overlay_gen_numi_griddriver_rhc.fcl</fcl>
-    <fcl>wirecell_g4_uboone.fcl</fcl>
-    <inputdef>&indef;</inputdef>
-    <datafiletypes>root,pndr</datafiletypes>
-    <defname>&name;_&sample;_g4</defname>
-    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/g4/&sample;</outdir>
-    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/g4/&sample;</logdir>
-    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/g4/&sample;</workdir>
-    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/g4/&sample;</bookdir>
-    <maxfilesperjob>1</maxfilesperjob>
-    <numjobs>4000</numjobs> <!-- All files set this to 4000 -->
-    <datatier>simulated</datatier>
-    <memory>4000</memory>
-    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
-    <jobsub_start> --expected-lifetime=short</jobsub_start>
-    <blacklist>Lancaster</blacklist>
-  </stage>
-
-  <stage name="reco1">
+  <stage name="overlay">
+    <initsource>/pnfs/uboone/resilient/users/kmistry/MCC9/init_gen_numi_dirt_rhc_reduced_events.sh</initsource>
+    <fcl>dirt_overlay_gen_SimInfoMixer_prod.fcl</fcl>
     <fcl>wirecell_detsim_overlay_numi_uboone.fcl</fcl>
     <fcl>standard_overlay_numi_uboone.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_stage1a.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_stage1b.fcl</fcl>
     <fcl>standard_larcv_uboone_mctruth_prod.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage1c.fcl</fcl>
-    <inputdef>&name;_&sample;_g4</inputdef>
-    <datafiletypes>root,pndr</datafiletypes>
-    <defname>&name;_&sample;_reco1</defname>
-    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</outdir>
-    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</logdir>
-    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco1/&sample;</workdir>
-    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1/&sample;</bookdir>
-    <maxfilesperjob>1</maxfilesperjob>
-    <numjobs>4000</numjobs> <!-- All files set this to 4000 -->
-    <datatier>reconstructed</datatier>
-    <memory>4000</memory>
-    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
-    <jobsub_start> --expected-lifetime=short</jobsub_start>
-    <blacklist>Lancaster</blacklist>
-  </stage>
-
-  <stage name="reco2">
     <fcl>crt_merge_extra_v06_26_01_13.fcl</fcl>
     <fcl>wirecell_detsim_optical_overlay_numi_uboone.fcl</fcl>
     <fcl>standard_overlay_notpc_numi_uboone.fcl</fcl>
@@ -92,7 +57,7 @@
     <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage2.fcl</fcl>
     <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_Overlay_numi.fcl</fcl>
     <startscript>condor_start_project_crt_merge_v06_26_01_13.sh</startscript>
-    <inputdef>&name;_&sample;_reco1</inputdef>
+    <inputdef>&indef;</inputdef>
     <datafiletypes>root,pndr</datafiletypes>
     <defname>&name;_&sample;</defname>
     <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</outdir>
@@ -103,7 +68,7 @@
     <numjobs>4000</numjobs> <!-- All files set this to 4000 -->
     <datatier>reconstructed</datatier>
     <memory>4000</memory>
-    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
+    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1 -f /pnfs/uboone/persistent/users/kmistry/MCC9/prodgenie_numi_dirt_nu_wirecell_g4_uboone_rhc.fcl</jobsub> <!--24h run time for 50 events -->
     <jobsub_start> --expected-lifetime=short</jobsub_start>
     <blacklist>Lancaster</blacklist>
   </stage>
