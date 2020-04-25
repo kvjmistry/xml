@@ -59,30 +59,56 @@
     <blacklist>Lancaster</blacklist>
   </stage>
 
-  <stage name="reco1">
+  <stage name="v3_reco1">
     <fcl>wirecell_detsim_overlay_numi_uboone.fcl</fcl>
     <fcl>standard_overlay_numi_uboone.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_stage1a.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_stage1b.fcl</fcl>
     <fcl>standard_larcv_uboone_mctruth_prod.fcl</fcl>
     <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage1c.fcl</fcl>
-    <inputdef>&name;_&sample;_g4</inputdef>
+    <inputdef>&name;_&sample;_g4_updated</inputdef>
     <datafiletypes>root,pndr</datafiletypes>
-    <defname>&name;_&sample;_reco1</defname>
-    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</outdir>
-    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</logdir>
-    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco1/&sample;</workdir>
-    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1/&sample;</bookdir>
+    <defname>&name;_&sample;_reco1_v3</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;_v3</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;_v3</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco1/&sample;_v3</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1/&sample;_v3</bookdir>
     <maxfilesperjob>1</maxfilesperjob>
-    <numjobs>4000</numjobs> <!-- All files set this to 4000 -->
-    <datatier>reconstructed</datatier>
-    <memory>4000</memory>
+    <numjobs>3995</numjobs> <!-- All files set this to 4000 -->
+    <datatier>reconstructed-2d</datatier>
+    <memory>3500</memory>
+    <disk>30GB</disk>
     <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
     <jobsub_start> --expected-lifetime=short</jobsub_start>
     <blacklist>Lancaster</blacklist>
   </stage>
 
-  <stage name="reco2">
+  <stage name="v3_reco1_makeup1">
+    <fcl>wirecell_detsim_overlay_numi_uboone.fcl</fcl>
+    <fcl>standard_overlay_numi_uboone.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_stage1a.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_stage1b.fcl</fcl>
+    <fcl>standard_larcv_uboone_mctruth_prod.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage1c.fcl</fcl>
+    <inputdef>&name;_&sample;_g4_updated_makeup1</inputdef>
+    <datafiletypes>root,pndr</datafiletypes>
+    <defname>&name;_&sample;_reco1_v3</defname>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;_v3_makeup1</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;_v3_makeup1</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco1/&sample;_v3_makeup1</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1/&sample;_v3_makeup1</bookdir>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>714</numjobs> <!-- All files set this to 4000 -->
+    <datatier>reconstructed-2d</datatier>
+    <memory>4000</memory>
+    <disk>30GB</disk>
+    <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
+  </stage>
+
+
+  <stage name="reco2_v3">
     <fcl>crt_merge_extra_v06_26_01_13.fcl</fcl>
     <fcl>wirecell_detsim_optical_overlay_numi_uboone.fcl</fcl>
     <fcl>standard_overlay_notpc_numi_uboone.fcl</fcl>
@@ -92,19 +118,20 @@
     <fcl>reco_uboone_mcc9_8_driver_overlay_numi_stage2.fcl</fcl>
     <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_Overlay_numi.fcl</fcl>
     <startscript>condor_start_project_crt_merge_v06_26_01_13.sh</startscript>
-    <inputdef>&name;_&sample;_reco1</inputdef>
+    <inputdef>&name;_&sample;_reco1_v3_snapshot</inputdef>
     <datafiletypes>root,pndr</datafiletypes>
-    <defname>&name;_&sample;</defname>
+    <defname>&name;_&sample;_v3</defname>
     <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</outdir>
     <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</logdir>
     <workdir>/pnfs/uboone/scratch/users/&user;/work/MCC9/&name;/reco2/&sample;</workdir>
     <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2/&sample;</bookdir>
     <maxfilesperjob>1</maxfilesperjob>
-    <numjobs>4000</numjobs> <!-- All files set this to 4000 -->
+    <numjobs>3912</numjobs> <!-- All files set this to 4000 -->
     <datatier>reconstructed</datatier>
-    <memory>4000</memory>
+    <memory>3500</memory>
+    <disk>15GB</disk>
     <jobsub>--expected-lifetime=24h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub> <!--24h run time for 50 events -->
-    <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <jobsub_start> --expected-lifetime=8h</jobsub_start>
     <blacklist>Lancaster</blacklist>
   </stage>
 

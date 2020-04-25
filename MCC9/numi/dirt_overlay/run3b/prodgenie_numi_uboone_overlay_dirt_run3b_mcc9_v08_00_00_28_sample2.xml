@@ -11,7 +11,7 @@
 <!ENTITY name "prodgenie_numi_uboone_overlay_dirt_rhc_mcc9_run3b_v28">
 <!ENTITY tag "mcc9_v08_00_00_28">
 <!ENTITY sample "sample2">
-<!ENTITY indef "prod_extunbiased_swizzle_crt_inclusive_v6_v6a_goodruns_mcc9_run3_overlay_numi_dirt_epoch_G1_frozen_Set2">
+<!ENTITY indef "prod_extunbiased_swizzle_crt_inclusive_v6_v6a_goodruns_mcc9_run3_overlay_numi_dirt_epoch_G1_frozen_Set1">
 ]>
 
 <job>

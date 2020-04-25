@@ -49,16 +49,40 @@
     <fcl>standard_larcv_uboone_data2d_prod.fcl</fcl>
     <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_beamOn_numi.fcl</fcl>
     <datafiletypes>root,pndr</datafiletypes>
-    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2</outdir>
-    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2</logdir>
-    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco2</workdir>
-    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2</bookdir>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco2/&sample;</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2/&sample;</bookdir>
     <inputdef>&indef;</inputdef>
     <maxfilesperjob>1</maxfilesperjob>
     <numjobs>4000</numjobs> <!-- This number may need to be adusted depending on how successful the reco1 jobs were! -->
     <datatier>reconstructed</datatier>
     <defname>&name;_&sample;</defname>
-    <memory>3500</memory>
+    <memory>4000</memory>
+    <disk>20GB</disk>
+    <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+  </stage>
+
+  <stage name="reco2_makeup1">
+    <fcl>run_merge_beamdata.fcl</fcl>
+    <fcl>run_BurstNoiseMetricsFilter.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_data_numi_optical.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_8_driver_stage2_beamOn_numi.fcl</fcl>
+    <fcl>standard_larcv_uboone_data2d_prod.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_beamOn_numi.fcl</fcl>
+    <datafiletypes>root,pndr</datafiletypes>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;_makeup1</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;_makeup1</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco2/&sample;_makeup1</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2/&sample;_makeup1</bookdir>
+    <inputdef>&indef;_makeup1</inputdef>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>502</numjobs> <!-- This number may need to be adusted depending on how successful the reco1 jobs were! -->
+    <datatier>reconstructed</datatier>
+    <defname>&name;_&sample;</defname>
+    <memory>4000</memory>
+    <disk>20GB</disk>
     <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
     <jobsub_start> --expected-lifetime=short</jobsub_start>
   </stage>

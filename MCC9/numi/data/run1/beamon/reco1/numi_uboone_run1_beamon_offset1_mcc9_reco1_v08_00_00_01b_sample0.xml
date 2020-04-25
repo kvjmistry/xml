@@ -54,6 +54,26 @@
     <datatier>reconstructed</datatier>
     <defname>&name;_&sample;</defname>
     <memory>4000</memory>
+    <disk>25GB</disk>
+    <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
+    <jobsub_start> --expected-lifetime=short</jobsub_start>
+  </stage>
+
+  <stage name="reco1_makeup1">
+    <fcl>reco_uboone_data_mcc9_8_driver_stage1.fcl</fcl>
+    <fcl>run_celltreeub_prod.fcl</fcl>
+    <datafiletypes>root,pndr</datafiletypes>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1_makeup1</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1_makeup1</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco1_makeup1</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1_makeup1</bookdir>
+    <inputdef>&indef;_makeup1</inputdef>
+    <maxfilesperjob>1</maxfilesperjob>
+    <numjobs>423</numjobs> <!-- A total of 423 files in the makeup -->
+    <datatier>reconstructed</datatier>
+    <defname>&name;_&sample;</defname>
+    <memory>4000</memory>
+    <disk>25GB</disk>
     <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
     <jobsub_start> --expected-lifetime=short</jobsub_start>
   </stage>

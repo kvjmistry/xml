@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
 
-<!-- This is for generating the sixth sample of run3b beamoff offset1 -->
+<!-- This is for making the pandora lee ntuples for numi for run1 beamoff for the first sample -->
 <!-- You should change the sample name and input definition accordingly -->
 <!-- If the input def is changed, make sure that the relavent memory, time etc are adjusted-->
 <!-- If you are not krishan then of course change the username entity-->
 
 <!-- Production Project -->
 <!DOCTYPE project [
-<!ENTITY release "v08_00_00_01b">
-<!ENTITY file_type "data">
+<!ENTITY release "v08_00_00_33">
+<!ENTITY file_type "mc">
 <!ENTITY run_type "physics">
 <!ENTITY user "kmistry">
-<!ENTITY name "numi_uboone_run3b_beamoff_offset1_mcc9_reco1_v08_00_00_01b">
-<!ENTITY indef "prod_extnumi_swizzle_crt_inclusive_v6_tmnt_stride2_offset1_goodRun3_goodcrt_set5">
-<!ENTITY sample "sample5">
+<!ENTITY name "pelee_ntuple_run1_beamoff_offset1_mcc9_v33">
+<!ENTITY indef "numi_uboone_run1_beamoff_offset1_mcc9_reco2_v08_00_00_28_sample0_all">
+<!ENTITY sample "sample0">
 ]>
+
 
 <job>
 
@@ -24,7 +25,7 @@
   <numevents>-1</numevents>
 
   <!-- Operating System -->
-  <os>SL6,SL7</os>
+  <os>SL7</os>
 
   <!-- Batch resources -->
   <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
@@ -33,27 +34,25 @@
   <larsoft>
     <tag>&release;</tag>
     <qual>e17:prof</qual>
+    <local>/pnfs/uboone/resilient/users/kmistry/tars/uboonecode_mcc9_v08_00_00_33_sl7.tar</local>
   </larsoft>
 
-  <check>1</check>
-  <copy>1</copy>
-  
   <!-- Project stages -->
-  <stage name="reco1">
-    <fcl>reco_uboone_data_mcc9_8_driver_stage1_reduced.fcl</fcl>
-    <fcl>run_celltreeub_prod.fcl</fcl>
+  <stage name="ntuple">
+    <fcl>run_flashvalidation_ext.fcl</fcl>
+    <fcl>run_neutrinoselectionfilter_run1_data_cc0pinp.fcl</fcl>
     <datafiletypes>root,pndr</datafiletypes>
-    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</outdir>
-    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</logdir>
-    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco1/&sample;</workdir>
-    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1/&sample;</bookdir>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/ntuple</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/ntuple</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/ntuple</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/ntuple</bookdir>
     <inputdef>&indef;</inputdef>
-    <maxfilesperjob>1</maxfilesperjob>
-    <numjobs>4000</numjobs>
+    <maxfilesperjob>5</maxfilesperjob>
+    <numjobs>381</numjobs>
     <datatier>reconstructed</datatier>
-    <defname>&name;_&sample;</defname>
-    <memory>4000</memory>
+    <memory>1000</memory>
     <disk>25GB</disk>
+    <schema>root</schema>
     <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
     <jobsub_start> --expected-lifetime=short</jobsub_start>
     <blacklist>Lancaster</blacklist>

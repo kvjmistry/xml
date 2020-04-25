@@ -7,14 +7,15 @@
 
 <!-- Production Project -->
 <!DOCTYPE project [
-<!ENTITY release "v08_00_00_01b">
+<!ENTITY release "v08_00_00_28">
 <!ENTITY file_type "data">
 <!ENTITY run_type "physics">
 <!ENTITY user "kmistry">
-<!ENTITY name "numi_uboone_run3b_beamon_offset1_mcc9_reco1_v08_00_00_01b">
-<!ENTITY indef "prod_numi_swizzle_crt_inclusive_v6_tmnt_stride2_offset1_goodRun3_goodcrt_set2">
+<!ENTITY name "numi_uboone_run3b_beamon_offset1_mcc9_reco2_v08_00_00_28">
+<!ENTITY indef "numi_uboone_run3b_beamon_offset1_mcc9_reco1_v08_00_00_01b_sample2">
 <!ENTITY sample "sample2">
 ]>
+
 
 <job>
 
@@ -24,7 +25,7 @@
   <numevents>-1</numevents>
 
   <!-- Operating System -->
-  <os>SL6,SL7</os>
+  <os>SL7</os>
 
   <!-- Batch resources -->
   <resource>DEDICATED,OPPORTUNISTIC,OFFSITE</resource>
@@ -33,27 +34,34 @@
   <larsoft>
     <tag>&release;</tag>
     <qual>e17:prof</qual>
+    <local>/pnfs/uboone/resilient/users/kmistry/tars/uboonecode_mcc9_v08_00_00_28_sl7.tar</local>
   </larsoft>
 
-  <check>0</check>
-  <copy>0</copy>
+  <check>1</check>
+  <copy>1</copy>
   
   <!-- Project stages -->
-  <stage name="reco1">
-    <fcl>reco_uboone_data_mcc9_8_driver_stage1_reduced.fcl</fcl>
-    <fcl>run_celltreeub_prod.fcl</fcl>
+  <stage name="reco2">
+    <fcl>run_merge_beamdata.fcl</fcl>
+    <fcl>crt_merge_extra_v06_26_01_13.fcl</fcl>
+    <fcl>run_BurstNoiseMetricsFilter.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_data_numi_optical.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_8_driver_stage2_beamOn_numi.fcl</fcl>
+    <fcl>standard_larcv_uboone_data2d_prod.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_beamOn_numi.fcl</fcl>
     <datafiletypes>root,pndr</datafiletypes>
-    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</outdir>
-    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</logdir>
-    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco1/&sample;</workdir>
-    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1/&sample;</bookdir>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco2/&sample;</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2/&sample;</bookdir>
+    <startscript>condor_start_project_crt_merge_v06_26_01_13.sh</startscript>
     <inputdef>&indef;</inputdef>
     <maxfilesperjob>1</maxfilesperjob>
-    <numjobs>100</numjobs>
+    <numjobs>4000</numjobs> <!-- This number may need to be adusted depending on how successful the reco1 jobs were! -->
     <datatier>reconstructed</datatier>
     <defname>&name;_&sample;</defname>
-    <memory>4000</memory>
-    <disk>25GB</disk>
+    <memory>3000</memory>
+    <disk>20GB</disk>
     <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
     <jobsub_start> --expected-lifetime=short</jobsub_start>
     <blacklist>Lancaster</blacklist>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- This is for generating the second sample of run1 beamon offset1 -->
+<!-- This is for generating the fourth sample of run3b beamoff offset1 -->
 <!-- You should change the sample name and input definition accordingly -->
 <!-- If the input def is changed, make sure that the relavent memory, time etc are adjusted-->
 <!-- If you are not krishan then of course change the username entity-->
@@ -11,9 +11,9 @@
 <!ENTITY file_type "data">
 <!ENTITY run_type "physics">
 <!ENTITY user "kmistry">
-<!ENTITY name "numi_uboone_run1_beamon_offset1_mcc9_reco2_v08_00_00_28">
-<!ENTITY indef "numi_uboone_run1_beamon_offset1_mcc9_reco1_v08_00_00_01b_sample2">
-<!ENTITY sample "sample2">
+<!ENTITY name "numi_uboone_run3b_beamoff_offset1_mcc9_reco2_v08_00_00_28">
+<!ENTITY indef "numi_uboone_run3b_beamoff_offset1_mcc9_reco1_v08_00_00_01b_sample3">
+<!ENTITY sample "sample3">
 ]>
 
 
@@ -42,12 +42,12 @@
   
   <!-- Project stages -->
   <stage name="reco2">
-    <fcl>run_merge_beamdata.fcl</fcl>
+    <fcl>crt_merge_extra_v06_26_01_13.fcl</fcl>
     <fcl>run_BurstNoiseMetricsFilter.fcl</fcl>
-    <fcl>reco_uboone_mcc9_8_driver_data_numi_optical.fcl</fcl>
-    <fcl>reco_uboone_data_mcc9_8_driver_stage2_beamOn_numi.fcl</fcl>
+    <fcl>reco_uboone_mcc9_8_driver_data_ext_numi_optical.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_8_driver_stage2_beamOff_numi.fcl</fcl>
     <fcl>standard_larcv_uboone_data2d_prod.fcl</fcl>
-    <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_beamOn_numi.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_beamOff_numi.fcl</fcl>
     <datafiletypes>root,pndr</datafiletypes>
     <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</outdir>
     <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</logdir>
@@ -55,13 +55,15 @@
     <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2/&sample;</bookdir>
     <inputdef>&indef;</inputdef>
     <maxfilesperjob>1</maxfilesperjob>
-    <numjobs>3833</numjobs> <!-- This number may need to be adusted depending on how successful the reco1 jobs were! -->
+    <numjobs>4000</numjobs> <!-- This number may need to be adusted depending on how successful the reco1 jobs were! -->
+    <disk>25GB</disk>
+    <startscript>condor_start_project_crt_merge_v06_26_01_13.sh</startscript>
     <datatier>reconstructed</datatier>
     <defname>&name;_&sample;</defname>
-    <memory>4000</memory>
-    <disk>20GB</disk>
+    <memory>3500</memory>
     <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
     <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
   </stage>
 
   <!-- file type -->

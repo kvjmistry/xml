@@ -53,6 +53,7 @@
     <datatier>reconstructed</datatier>
     <defname>&name;_&sample;</defname>
     <memory>4000</memory>
+    <disk>25GB</disk>
     <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
     <jobsub_start> --expected-lifetime=short</jobsub_start>
     <blacklist>Lancaster</blacklist>

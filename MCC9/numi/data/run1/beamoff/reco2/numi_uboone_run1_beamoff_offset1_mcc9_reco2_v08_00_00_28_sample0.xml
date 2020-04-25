@@ -48,13 +48,14 @@
     <fcl>standard_larcv_uboone_data2d_prod.fcl</fcl>
     <fcl>reco_uboone_data_mcc9_1_8_driver_poststage2_filters_beamOff_numi.fcl</fcl>
     <datafiletypes>root,pndr</datafiletypes>
-    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2</outdir>
-    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2</logdir>
-    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco2</workdir>
-    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2</bookdir>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco2/&sample;</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco2/&sample;</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco2/&sample;</bookdir>
     <inputdef>&indef;</inputdef>
     <maxfilesperjob>1</maxfilesperjob>
     <numjobs>4000</numjobs> <!-- This number may need to be adusted depending on how successful the reco1 josb were! -->
+    <disk>25GB</disk>
     <datatier>reconstructed</datatier>
     <defname>&name;_&sample;</defname>
     <memory>3500</memory>

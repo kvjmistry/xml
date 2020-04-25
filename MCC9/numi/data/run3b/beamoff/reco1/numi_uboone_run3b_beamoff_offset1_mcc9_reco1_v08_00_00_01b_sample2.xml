@@ -12,7 +12,7 @@
 <!ENTITY run_type "physics">
 <!ENTITY user "kmistry">
 <!ENTITY name "numi_uboone_run3b_beamoff_offset1_mcc9_reco1_v08_00_00_01b">
-<!ENTITY indef "prod_numi_swizzle_crt_inclusive_v6_tmnt_stride2_offset1_goodRun3_goodcrt_set2">
+<!ENTITY indef "prod_extnumi_swizzle_crt_inclusive_v6_tmnt_stride2_offset1_goodRun3_goodcrt_set2">
 <!ENTITY sample "sample2">
 ]>
 
@@ -40,21 +40,23 @@
   
   <!-- Project stages -->
   <stage name="reco1">
-    <fcl>reco_uboone_data_mcc9_8_driver_stage1.fcl</fcl>
+    <fcl>reco_uboone_data_mcc9_8_driver_stage1_reduced.fcl</fcl>
     <fcl>run_celltreeub_prod.fcl</fcl>
     <datafiletypes>root,pndr</datafiletypes>
-    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1</outdir>
-    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1</logdir>
-    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco1</workdir>
-    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1</bookdir>
+    <outdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</outdir>
+    <logdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/reco1/&sample;</logdir>
+    <workdir>/pnfs/uboone/scratch/users/&user;/MCC9/&name;/work/reco1/&sample;</workdir>
+    <bookdir>/uboone/data/users/&user;/book/MCC9/&name;/reco1/&sample;</bookdir>
     <inputdef>&indef;</inputdef>
     <maxfilesperjob>1</maxfilesperjob>
     <numjobs>4000</numjobs>
     <datatier>reconstructed</datatier>
     <defname>&name;_&sample;</defname>
     <memory>4000</memory>
+    <disk>25GB</disk>
     <jobsub>--expected-lifetime=12h -e IFDH_CP_UNLINK_ON_ERROR=1 </jobsub>
     <jobsub_start> --expected-lifetime=short</jobsub_start>
+    <blacklist>Lancaster</blacklist>
   </stage>
 
   <!-- file type -->
